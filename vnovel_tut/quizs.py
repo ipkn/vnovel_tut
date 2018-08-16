@@ -190,7 +190,7 @@ while 1:
         goal=Goal(ipkn_solution.expr_lang),
     ),
     Quiz(
-        title="2-3. 한자리 숫자 계산기 3: () */ +-"
+        title="2-3. 한자리 숫자 계산기 3: () */ +-",
         desc="한자리 숫자와 *, /, +, -, (, )로 이루어진 식을 계산한 결과값을 구하는 파서를 만들어봅시다.",
         examples = [
             Example('(1+2)*3'),
@@ -202,7 +202,7 @@ while 1:
         goal=Goal(ipkn_solution.expr_lang),
     ),
     Quiz(
-        title="3-1. 다시 만들기: say부터"
+        title="3-1. 다시 만들기: say부터",
         desc='2장에서 사용했던 방식으로 새로 파서를 만들어봅시다. 자세한 설명은 슬라이드를 참조하세요.',
         goal = Goal(ipkn_solution.script_lang),
         examples = [
@@ -223,7 +223,7 @@ while 1:
         ],
     ),
     Quiz(
-        title="3-2. if문 다시 만들기: 들여쓰기 처리하기"
+        title="3-2. if문 다시 만들기: 들여쓰기 처리하기",
         desc='일반적인 if문을 처리하는 파서를 작성해 봅시다. 들여쓰기를 제대로 구현해봅시다. 자세한 설명은 슬라이드를 참조하세요.',
         examples = [
 Example('''\
@@ -254,7 +254,7 @@ if True:
         goal = Goal(ipkn_solution.script_lang),
     ),
     Quiz(
-        title="3-3. 선택지 만들기"
+        title="3-3. 선택지 만들기",
         desc='새로 추가된 선택지 문법에 대해 파스 트리를 만든 후 실행해 봅시다. 자세한 설명은 슬라이드를 참조하세요.',
         examples = [Example('''\
 엄마: "냉장고에 토마토 재워놨다 먹어"
@@ -274,8 +274,8 @@ if True:
     desc='''\
 슬라이드에서 설명된 대본 스크립트 전체 문법을 구현해 봅시다.
 
- * 발표자도 완성하지 않아 채점이 불가능합니다. 용서해주세요 (__)
-'''
+ * 발표자도 완성하지 않아 채점이 불가능합니다. 이해해주세요 (__)
+''',
     examples = [Example('''\
 문제: "61 52 63 ㅁ 46\nㅁ에 들어갈 숫자는?"
 선택지:

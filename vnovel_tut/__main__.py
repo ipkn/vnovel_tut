@@ -97,7 +97,7 @@ class Window:
         self.examples.insert(tkinter.END, '예제\n')
         self.examples.tag_add("BigTitle", "1.0", "2.0")
         if q.examples:
-            self.examples.insert(tkinter.END, '   -----   \n'.join("입력 "+str(idx+1)+"}\n"+x.generate_output() for idx, x in enumerate(q.examples)))
+            self.examples.insert(tkinter.END, '   -----   \n'.join("입력 "+str(idx+1)+"\n"+x.generate_output() for idx, x in enumerate(q.examples)))
         else:
             self.examples.insert(tkinter.END, '(예제 없음)')
         self.examples.config(state=tkinter.DISABLED)
