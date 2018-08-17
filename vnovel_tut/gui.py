@@ -57,6 +57,12 @@ def textbox(x,y,w,h,who,msg):
     def initboxes():
         global msgbox, namebox, msgbox_var, namebox_var, frame
         if msgbox:
+            msgbox.destroy()
+            msgbox = None
+        if namebox:
+            namebox.destroy()
+            namebox = None
+        if msgbox:
             msgbox_var.set('')
         else:
             msgbox_var = tkinter.StringVar()
