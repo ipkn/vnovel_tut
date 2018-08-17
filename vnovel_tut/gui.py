@@ -117,6 +117,7 @@ def event_input(*args):
     
 
 def say(who, msg):
+    print(who,msg,file=open('log','w'))
     textbox(10,70,80,20,who,msg)
 
 def select(*args):
@@ -267,7 +268,7 @@ def run(code, m, script):
             msg_q.put('done')
             subthread = None
     subthread = threading.Thread(target=internal_run)
-    subthread.start()
+    print(repr(script))
     start(master, script)
 
     bounds = master.bbox()
@@ -284,3 +285,4 @@ def run(code, m, script):
     frame.bind('<Button>', event_input)
     frame.bind('<Key>', event_input)
     mt_helper()
+    subthread.start()

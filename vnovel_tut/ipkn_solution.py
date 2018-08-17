@@ -1,4 +1,4 @@
-script_lang = '''\
+script_lang = r'''\
 indents = []
 def stmts_cmd(s):
     cmds = []
@@ -117,7 +117,7 @@ def select_item_cmd(s):
     return (item, cmds), s
 
 def select_cmd(s):
-    s = const_str_cmd("select_cmd",s)
+    s = const_str_cmd("선택지",s)
     _, s = white_cmd(s)
     s = const_char_cmd(":",s)
     _, s = white_cmd(s)

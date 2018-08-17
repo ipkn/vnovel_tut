@@ -304,14 +304,15 @@ class Window:
             goal = 2
             my_exc = None
             goal_exc = None
+            example_input = str(e)
             try:
-                res = verify.run(code, str(e))
+                res = verify.run(code, example_input)
             except Exception as exc:
                 has_exception = True
                 my_exc = exc
 
             try:
-                goal = verify.run(q.goal.goal, str(e))
+                goal = verify.run(q.goal.goal, example_input)
             except Exception as exc:
                 goal_has_exception = True
                 goal_exc = exc
