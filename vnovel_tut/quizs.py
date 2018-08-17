@@ -149,6 +149,7 @@ if "다음" == "긴거":
 '''),
             ],
         goal = Goal('''\
+skip_next_line = False
 while 1:
     line = input()
     if skip_next_line:
@@ -165,7 +166,7 @@ while 1:
     ),
     Quiz(
         title="2-1. 한자리 숫자 계산기 1: +-",
-        desc="한자리 숫자와 +, -만 있는 식을 계산한 결과값을 구하는 파서를 만들어봅시다.\n슬라이드 23번부터를 참고해주세요.\n\nhttps://goo.gl/xBCbtB",
+        desc="한자리 숫자와 +, -만 있는 식을 계산한 결과값을 구하는 파서를 만들어봅시다.\n슬라이드 23번부터를 참고해주세요.\n\nhttps://goo.gl/xBCbtB\n\n - 계산한 값은 answer(3) 같은 형태로 답해주세요.",
         examples = [
             Example('1+2'),
             Example('5-2-1'),

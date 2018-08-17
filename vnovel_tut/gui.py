@@ -16,6 +16,8 @@ except ImportError:
 
 should_close = False
 msg_q = queue.Queue()
+def answer(x):
+    pass
 def dispatch(f):
     ev = threading.Event()
     def work():
@@ -33,12 +35,12 @@ def post(f):
 cv = threading.Condition()
 
 CHAR_DELAY = 0.055
-inputs = []
+scripts = []
 master = None
 def start(m, script = ""):
-    global inputs, master
+    global scripts, master
     master = m
-    inputs = [x for x in script.split('\n') if x.strip()]
+    scripts = [x for x in script.split('\n') if x.strip()]
 
 msgbox = None
 namebox = None
@@ -59,13 +61,13 @@ def textbox(x,y,w,h,who,msg):
         else:
             msgbox_var = tkinter.StringVar()
             msgbox = tkinter.Label(frame, textvariable = msgbox_var, font=('monaca',15), fg='white', padx=15,pady=15, anchor = tkinter.NW, justify = tkinter.LEFT,bg='#000064', bd=0, highlightcolor='white', highlightbackground='white', highlightthickness='3', )
-            namebox_var = tkinter.StringVar()
-            namebox = tkinter.Label(frame, textvariable = namebox_var, font=('monaca',15), fg='white',  bg='#000064', bd=0, highlightcolor='white', highlightbackground='white', highlightthickness='3', padx=5, pady=5)
             msgbox.place(relx = x, rely = y, relw = w, relh = h, anchor=tkinter.NW)
             msgbox.bindtags((frame,) + msgbox.bindtags())
         if namebox:
             pass
         else:
+            namebox_var = tkinter.StringVar()
+            namebox = tkinter.Label(frame, textvariable = namebox_var, font=('monaca',15), fg='white',  bg='#000064', bd=0, highlightcolor='white', highlightbackground='white', highlightthickness='3', padx=5, pady=5)
             namebox.place(relx = x, rely = y, anchor = tkinter.SW)
             namebox.bindtags((frame,) + namebox.bindtags())
             namebox_var.set(str(who))
@@ -183,9 +185,13 @@ def select(*args):
     return sel_result
 
 def input():
-    return window.gui.input()
+    if not scripts:
+        raise EOFError
+    ret = scripts[0]
+    scripts.pop(0)
+    return ret
 
-env = dict(say = say, select = select)
+env = dict(say = say, select = select, input=input, answer=answer)
 frame = None
 subthread = None
 
@@ -223,7 +229,7 @@ def close():
         except:
             pass
         time.sleep(0.1)
-        t.join()
+        #t.join()
         subthread = None
     if frame:
         frame.destroy()
@@ -254,7 +260,7 @@ def run(code, m, script):
     def internal_run():
         global subthread
         try:
-            exec(code, env.copy())
+            exec(code, env)
         except:
             pass
         finally:

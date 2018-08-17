@@ -97,7 +97,7 @@ class Window:
         self.examples.insert(tkinter.END, '예제\n')
         self.examples.tag_add("BigTitle", "1.0", "2.0")
         if q.examples:
-            self.examples.insert(tkinter.END, '   -----   \n'.join("입력 "+str(idx+1)+"\n"+x.generate_output() for idx, x in enumerate(q.examples)))
+            self.examples.insert(tkinter.END, '\n   -----   \n'.join("입력 "+str(idx+1)+"\n"+x.generate_output() for idx, x in enumerate(q.examples)))
         else:
             self.examples.insert(tkinter.END, '(예제 없음)')
         self.examples.config(state=tkinter.DISABLED)
@@ -300,19 +300,23 @@ class Window:
         for idx,e in enumerate(examples):
             has_exception = False
             goal_has_exception = False
+            res = 1
+            goal = 2
             my_exc = None
             goal_exc = None
             try:
                 res = verify.run(code, str(e))
-            except Exception as e:
+            except Exception as exc:
                 has_exception = True
-                my_exc = e
+                my_exc = exc
 
             try:
                 goal = verify.run(q.goal.goal, str(e))
-            except Exception as e:
+            except Exception as exc:
                 goal_has_exception = True
-                goal_exc = None
+                goal_exc = exc
+                raise
+            print(goal, res, goal_has_exception, has_exception, my_exc,goal_exc) 
             if goal == res or goal_has_exception and has_exception and type(my_exc) is type(goal_exc):
                 print('예제 %s 통과'%(idx+1) )
             else:
@@ -326,14 +330,20 @@ class Window:
             self.tutstatus.config(text='통과',fg='#adff2f')
             if not db.setdefault('pass'+str(self.current_level), 0):
                 db['pass'+str(self.current_level)] = 1
-                res = urlopen('http://ipkn.me:4949/pass/'+str(self.current_level)).read()
+                try:
+                    res = urlopen('http://ipkn.me:4949/pass/'+str(self.current_level)).read()
+                except:
+                    pass
 
             self.show_pass()
         else:
             print('통과하지 못했습니다.')
             if not db['pass'+str(self.current_level)]:
                 self.tutstatus.config(text='실패',fg='#ff2f1f')
-                res = urlopen('http://ipkn.me:4949/fail/'+str(self.current_level)).read()
+                try:
+                    res = urlopen('http://ipkn.me:4949/fail/'+str(self.current_level)).read()
+                except:
+                    pass
             k = 'fail' + str(self.current_level)
             db[k] = db.get(k,0) + 1
             self.show_fail(q.hint.generate(db[k]))

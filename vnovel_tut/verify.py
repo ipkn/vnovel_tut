@@ -3,8 +3,10 @@ scripts = []
 def start(script):
     global commands, scripts
     commands = []
-    scripts = [x.strip() for x in script.strip().split('\n') if x.strip()]
+    scripts = [x for x in script.strip().split('\n') if x.strip()]
 
+def answer(x):
+    commands.append(['Ans', x])
 def say(who, msg):
     commands.append(['Say', who, msg])
 
@@ -41,14 +43,14 @@ def branch():
 
 def run(code, script=''):
     global first_loop, select_idx
-    env = dict(say=say, select=select)
+    env = dict(say=say, select=select, input=input, answer=answer)
     start(script)
 
     first_loop = True
     while True:
         select_idx = 0
         try:
-            exec(code, env, globals().copy())
+            exec(code, env)
         except EOFError:
             pass
         if not decrease_select_var():
